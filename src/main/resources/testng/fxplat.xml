@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="反邪UI自动化测试">
+    <parameter name="${testBrowser}" value="${testBrowser}"/>
+    <test name="自动登录测试">
+        <classes>
+            <class name="com.youedata.testcase.LoginCase">
+                <methods>
+                    <include name="loginSuccess"/>
+                    <include name="loginFail"/>
+                    <include name="logout"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+</suite>

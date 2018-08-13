@@ -1,0 +1,20 @@
+#系统登录界面欢迎文本
+fx_welcome:
+  type: "xpath"
+  value: "/html/body/div/div/h3"
+username:
+  type: "name"
+  value: "username"
+password:
+  type: "name"
+  value: "password"
+login_button:
+  type: "xpath"
+  value: "/html/body/div/div/form/button"
+login_user:
+  type: "xpath"
+  value: "//*[@id='side-menu']/li[1]/div[1]/a/span/span"
+#退出系统按钮
+logout:
+  type: "xpath"
+  value: "/html/body/div[2]/div/div[1]/nav/ul/li/i"

@@ -47,13 +47,14 @@ public class Browser {
                 driver = new FirefoxDriver();
                 break;
             case PHANTOMJS:
-                String  system = System.getProperty("os.name");
-                if(system.equals("Windows 7")){
-                    System.setProperty("phantomjs.binary.path", projectPath+"/src/main/resources/driver/phantomjs.exe");
-                    driver = new PhantomJSDriver();
-                }else {
-                    driver = new PhantomJSDriver();
-                }
+                driver = new PhantomJSDriver();
+//                String  system = System.getProperty("os.name");
+//                if(system.equals("Windows 7")){
+//                    System.setProperty("phantomjs.binary.path", projectPath+"/src/main/resources/driver/phantomjs.exe");
+//                    driver = new PhantomJSDriver();
+//                }else {
+//                    driver = new PhantomJSDriver();
+//                }
 
                 break;
         }

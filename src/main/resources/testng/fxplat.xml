@@ -3,13 +3,26 @@
 
 <suite name="反邪UI自动化测试">
     <parameter name="${testBrowser}" value="${testBrowser}"/>
-    <test name="自动登录测试">
+    <test name="自动登录测试" verbose="2" preserve-order="true">
         <classes>
             <class name="com.youedata.testcase.LoginCase">
                 <methods>
                     <include name="loginSuccess"/>
                     <include name="loginFail"/>
                     <include name="logout"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="组织管理系统-网格人员档案管理" verbose="2" preserve-order="true">
+        <classes>
+            <class name="com.youedata.testcase.orgmanager.GridPersonCase">
+                <methods>
+                    <include name="checkPageTitle"/>
+                    <include name="checkAddTitle"/>
+                    <include name="addGirdPerson"/>
+                    <include name="searchGirdPerson"/>
+                    <!--<include name="checkAddTitle"/>-->
                 </methods>
             </class>
         </classes>

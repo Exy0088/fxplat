@@ -1,16 +1,17 @@
 package com.youedata.utils;
 
-import com.youedata.base.XACommon;
+import com.youedata.base.Common;
 import cn.hutool.core.io.resource.ResourceUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.log4j.Logger;
+import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +23,7 @@ import java.util.List;
  **/
 public class ExcelUtils {
 
+    Logger log  =  Logger.getLogger(this.getClass());
 
     private static int hedear = 0;
     private String filePath;
@@ -38,6 +40,7 @@ public class ExcelUtils {
         int TestSuite = 1;
         int TestCaseType = 2;
         int TestCaseName = 3;
+        int Expected = 5;
     }
 
 
@@ -53,7 +56,7 @@ public class ExcelUtils {
     public  List<Integer> getRowNum(String targetContent, int targetColumn) throws Exception {
         List<Integer> list = new ArrayList<Integer>();
         String getContentTemp = null;
-        HSSFWorkbook wb = new HSSFWorkbook(new FileInputStream(XACommon.getFilePath(filePath)));
+        HSSFWorkbook wb = new HSSFWorkbook(new FileInputStream(Common.getFilePath(filePath)));
         HSSFSheet sheet = wb.getSheet(caseSheet);
         HSSFRow row = null;
         int rowTotal = sheet.getLastRowNum();
@@ -293,6 +296,32 @@ public class ExcelUtils {
         }
         return readDataList;
   }
+
+    public void writeExcelCell(int line,int column,String content)throws IOException {
+        HSSFWorkbook wb = new HSSFWorkbook(new FileInputStream(Common.getFilePath(filePath)));
+        HSSFSheet sheet = wb.getSheet(caseSheet);
+        if(line <= sheet.getLastRowNum() && line>0){
+            HSSFRow row = sheet.getRow(line);
+            if(column <= row.getLastCellNum() && column >0){
+                HSSFCell cell = row.getCell(column);
+                if(null == cell){
+                    row.createCell(column);
+                }
+                cell.setCellValue(content);
+//                HSSFCellStyle cellStyle = cell.getCellStyle();
+//                HSSFCellStyle temp = wb.createCellStyle();
+                FileOutputStream out = new FileOutputStream(Common.getFilePath(filePath));
+                wb.write(out);
+                wb.close();
+                out.close();
+            }else {
+                log.error("列索引越界");
+            }
+        }else {
+            log.error("行索引越界");
+        }
+
+    }
 
     public static void main(String[] args){
         System.out.println(ResourceUtil.getStream("testdata\\xfplat.xls"));

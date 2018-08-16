@@ -2,7 +2,7 @@ package com.youedata.utils;
 
 
 
-import com.youedata.base.XACommon;
+import com.youedata.base.Common;
 import java.io.*;
 import java.util.Properties;
 
@@ -35,7 +35,7 @@ public class PropertiesUtil {
     public PropertiesUtil(String... filePath) {
         this.filePath = new String[filePath.length];
         for (int i=0;i<filePath.length;i++){
-           this.filePath[i]= XACommon.getFilePath(filePath[i]);
+           this.filePath[i]= Common.getFilePath(filePath[i]);
         }
     }
 
@@ -114,7 +114,7 @@ public class PropertiesUtil {
 //                }else{
                     props.setProperty(key,value);
 //                }
-                fos = new FileOutputStream(XACommon.getFilePath(file));
+                fos = new FileOutputStream(Common.getFilePath(file));
                 props.store(fos,"SaveCookie");
             } catch (FileNotFoundException e) {
                 e.printStackTrace();

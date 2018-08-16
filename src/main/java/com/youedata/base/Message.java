@@ -15,5 +15,6 @@ public class Message {
     public static final String ADDSUCCESS = "添加成功";
     public static final String ADDFAIL = "添加失败";
     public static final String LOGOUTSUCCESS = "退出成功";
-
+    public static final String SEARCHSUCCESS = "查询成功";
+    public static final String SEARCHFAIL = "查询失败";
 }

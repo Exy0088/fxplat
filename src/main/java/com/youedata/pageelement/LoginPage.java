@@ -15,7 +15,7 @@ public class LoginPage {
     Logger log  =  Logger.getLogger(this.getClass());
     private BaseDriver driver;
     private Locator locator;
-    private final String path = "yaml\\login.yaml";
+    private final String path = "yaml/login.yaml";
 
     public LoginPage(BaseDriver driver) {
         this.driver = driver;

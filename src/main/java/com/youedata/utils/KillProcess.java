@@ -66,6 +66,9 @@ public class KillProcess {
                 KillProcess.kill("chrome.exe");
                 KillProcess.kill("chromedriver.exe");
                 break;
+            case PHANTOMJS:
+                //关闭浏览器进程
+                KillProcess.kill("phantomjs.exe");
         }
     }
 }

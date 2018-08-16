@@ -3,16 +3,17 @@ package com.youedata.testcase;
 import com.youedata.action.LoginAction;
 import com.youedata.base.GlobalConfig;
 import com.youedata.base.UrlType;
-import com.youedata.base.XACommon;
+import com.youedata.base.Common;
 import com.youedata.base.driver.BaseDriver;
+import com.youedata.utils.Assertion;
+import com.youedata.utils.ExcelUtils;
 import org.apache.log4j.Logger;
-import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import com.youedata.pagedata.LoginPageData;
 import com.youedata.pagedata.BasePageData;
-import com.youedata.utils.Assertion;
 
 import java.lang.reflect.Method;
 import java.util.Iterator;
@@ -22,15 +23,16 @@ import java.util.Iterator;
   * @author hezhaowei
   * @create 2018-07-15 17:05
  **/
-public class LoginCase extends CaseBase{
+public class LoginCase extends BaseCase {
 
     Logger log  =  Logger.getLogger(this.getClass().getName());
     private LoginAction loginAction;
     private BaseDriver driver;
-    private Assertion assertion;
     private LoginPageData caseData;
-    private final String filePath = "testdata\\fxplat.xls";
+    private Assertion assertion;
+    private final String filePath = "testdata/fxplat.xls";
     private final String caseSheet = "登录测试数据";
+    private ExcelUtils excelUtils;
 
     /**
      * 注入数据驱动
@@ -40,19 +42,19 @@ public class LoginCase extends CaseBase{
      */
     @DataProvider(name = "longinData")
     public Iterator<Object[]> loginData(Method method) throws Exception{
-       return XACommon.casesData(filePath,caseSheet,method);
+        excelUtils = new ExcelUtils(filePath,caseSheet);
+       return Common.casesData(excelUtils,method);
     }
 
     //每个Test运行时之前都要调用该方法
     @BeforeMethod
     public void setUp() throws Exception {//@Optional 这个注解是给传入的参数一个默认值，String browser是获得 @Parameters({"browser"})的值
-                                                                           //若参数有多个@Parameters({"browser","par"}),String browser,String par,必须一一对应
+                                          //若参数有多个@Parameters({"browser","par"}),String browser,String par,必须一一对应
         //使用父类的获得driver的方法
         this.driver = super.getDriver();
         //初始化LoginAction业务类
         loginAction = new LoginAction(driver);
-        //初始化断言类
-        assertion = new Assertion(driver);
+        this.assertion = new Assertion(driver);
         //浏览器最大化
         driver.browserMax();
         //打开浏览器输入访问地址
@@ -65,11 +67,10 @@ public class LoginCase extends CaseBase{
      */
     @Test(description = "登录成功用例", dataProvider = "longinData")//注入数据
     public void loginSuccess(BasePageData data)throws Exception {//需要一个LoginCaseData 这个实体类，获得Excel文件中的用户名、密码数据
-        caseData = getJson(data.getInputData(),LoginPageData.class);
+        caseData = Common.getJson(data.getInputData(),LoginPageData.class);
         String message = loginAction.loginSuccess(caseData.getUsername(), caseData.getPassword());//调用loginaction业务类中login方法，
         //调用Assert类中的方法，实际值与预期值进行比较
-        log.info("Assert验证：{"+"实际值:"+message+","+"预期值:"+data.getExpected()+"} 实际值与预期值是否一致");
-        Assert.assertEquals(message,data.getExpected());
+        assertion.VerityString(message,data.getExpected());
     }
 
     /**
@@ -78,26 +79,17 @@ public class LoginCase extends CaseBase{
      */
     @Test(description = "登录失败用例", dataProvider = "longinData")
     public void loginFail(BasePageData data)throws Exception{
-        caseData = getJson(data.getInputData(),LoginPageData.class);
+        caseData = Common.getJson(data.getInputData(),LoginPageData.class);
         String message = loginAction.loginFail(caseData.getUsername(),caseData.getPassword());
         //调用Assert类中的方法，实际值与预期值进行比较
-        log.info("Assert验证：{"+"实际值:"+message+","+"预期值:"+data.getExpected()+"} 实际值与预期值是否一致");
-        Assert.assertEquals(message,data.getExpected());
+        assertion.VerityString(message,data.getExpected());
     }
+
     @Test(description = "退出登录用例", dataProvider = "longinData")
     public void logout(BasePageData data)throws Exception{
         String message = loginAction.logout();
         //调用Assert类中的方法，实际值与预期值进行比较
-        log.info("Assert验证：{"+"实际值:"+message+","+"预期值:"+data.getExpected()+"} 实际值与预期值是否一致");
-        Assert.assertEquals(message,data.getExpected());
+        assertion.VerityString(message,data.getExpected());
     }
-
-
-
-
-//    @AfterMethod
-//    public void tearDown(Method method){
-//        driver.closed();
-//    }
 
 }

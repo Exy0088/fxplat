@@ -2,7 +2,7 @@ package com.youedata.utils;
 
 
 import com.youedata.base.GlobalConfig;
-import com.youedata.base.XACommon;
+import com.youedata.base.Common;
 import com.youedata.base.driver.BaseDriver;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
@@ -26,7 +26,7 @@ public class Locator {
 
     public Locator(BaseDriver driver, String path) {
         this.driver = driver;
-        this.path = XACommon.getFilePath(path);
+        this.path = Common.getFilePath(path);
     }
 
     /**

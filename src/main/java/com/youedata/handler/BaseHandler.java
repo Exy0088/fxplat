@@ -3,6 +3,7 @@ package com.youedata.handler;
 import com.youedata.base.driver.BaseDriver;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 /**
  * 页面操作基类
@@ -13,6 +14,7 @@ public class BaseHandler {
 
     Logger log  =  Logger.getLogger(this.getClass());
     private BaseDriver driver;
+    private Select select;
 
     public BaseHandler(BaseDriver driver){
         this.driver = driver;
@@ -60,5 +62,15 @@ public class BaseHandler {
      */
     public void moveScroll(){
         driver.moveScroll();
+    }
+
+    /**
+     * select根据value选择
+     * @param element
+     * @param value
+     */
+    public void selectValue(WebElement element,String value){
+        this.select = new Select(element);
+        select.selectByValue(value);
     }
 }

@@ -1,0 +1,50 @@
+#网格人员档案元素管理
+
+#组织管理系统按钮
+orgmanager_memu:
+  type: "linkText"
+  value: "组织管理系统"
+#网格人员档案管理按钮
+grid_person_memu:
+  type: "linkText"
+  value: "网格人员档案管理"
+
+#添加网格人员
+#新增人员按钮
+add_button:
+  type: "xpath"
+  value: "//*[@id='GridmanTableToolbar']/button"
+#新增网格人员弹出框title
+add_title:
+  type: "className"
+  value: "layui-layer-title"
+#网格员姓名
+grid_person_name:
+  type: "name"
+  value: "gridmanName"
+#身份证号
+grid_person_Card:
+  type: "name"
+  value: "gridmanCard"
+#提交
+add_submit:
+  type: "id"
+  value: "ensure"
+
+#查询网格人员
+#行政区域下拉框
+street:
+  type: "id"
+  value: "street"
+#网格分类下拉框
+grid_person_Grid:
+  type: "id"
+  value: "gridmanGrid"
+#人员姓名输入框
+grid_man_name:
+  type: "id"
+  value: "gridmanName"
+#查询按钮
+search_button:
+  type: "xpath"
+  value: "/html/body/div/div/div/div/div[2]/div/div/div[1]/div[4]/button"

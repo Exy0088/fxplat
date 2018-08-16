@@ -11,7 +11,7 @@ import com.youedata.utils.PropertiesUtil;
  **/
 public class GlobalConfig {
 
-    private static PropertiesUtil propertiesUtil = new PropertiesUtil("properties\\global.properties");
+    private static PropertiesUtil propertiesUtil = new PropertiesUtil("properties/global.properties");
 
     public static String getKeyValue(String key){
        return propertiesUtil.getPro(key);

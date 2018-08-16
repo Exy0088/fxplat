@@ -4,7 +4,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+
+import java.util.Properties;
 
 /**
   *  浏览器驱动类
@@ -42,6 +45,16 @@ public class Browser {
             case FIREFOX:
                 System.setProperty("webdriver.gecko.driver", projectPath+"/src/main/resources/driver/geckodriver.exe");
                 driver = new FirefoxDriver();
+                break;
+            case PHANTOMJS:
+                String  system = System.getProperty("os.name");
+                if(system.equals("Windows 7")){
+                    System.setProperty("phantomjs.binary.path", projectPath+"/src/main/resources/driver/phantomjs.exe");
+                    driver = new PhantomJSDriver();
+                }else {
+                    driver = new PhantomJSDriver();
+                }
+
                 break;
         }
     }

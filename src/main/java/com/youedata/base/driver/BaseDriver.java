@@ -40,7 +40,7 @@ public class BaseDriver {
         if( browserType == null) {
             log.error("浏览器传参有误");
         }else {
-            KillProcess.kill(browserType);
+           // KillProcess.kill(browserType);
             log.info("读取浏览器并将其初始化");
             switch (browserType){
                 case IE:
@@ -54,6 +54,10 @@ public class BaseDriver {
                 case CHROME:
                     browser = new Browser(BrowserType.CHROME);
                     log.info("初始化谷歌浏览器");
+                    break;
+                case PHANTOMJS:
+                    browser = new Browser(BrowserType.PHANTOMJS);
+                    log.info("初始化PHANTOMJS");
                     break;
                 default:
                     browser = new Browser(BrowserType.CHROME);

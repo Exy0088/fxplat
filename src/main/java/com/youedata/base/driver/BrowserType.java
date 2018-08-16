@@ -7,5 +7,5 @@ package com.youedata.base.driver;
  * @create 2018-07-17 13:28
  **/
 public enum  BrowserType {
-    IE,CHROME,FIREFOX
+    IE,CHROME,FIREFOX,PHANTOMJS
 }
